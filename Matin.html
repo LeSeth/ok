@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+#include
+<stdio.h>
+    #include
+    <stdlib.h>
+        #include
+        <time.h>
+            #define TRUE 1 #define FALSE 0 /* Name: algorithme de tri Copyright: Author: TIHAR, SILHADI, SENOUCI Date: 22/12/12 22:43 Description: calcul de temps d'execution de différent algo de tri */ // tri par insertion void tri_insertion(int *t, int n) { int
+            i,p,j; int x; for (i = 1; i
+            < n; i++) { x=t [i]; p=i -1; while (t[p]> x && p-- > 0) {} p++; for (j = i-1; j >= p; j--) { t[j+1] = t[j]; } t[p] = x; } } // tri par fusion void fusion(int *t,int deb1,int fin1,int fin2) { int *table1; int deb2=fin1+1; int compt1=deb1; int compt2=deb2; int i; table1=(int *)malloc((fin1-deb1+1)*sizeof(int));
+                for(i=deb1;i
+                <=fin1;i++) table1[i-deb1]=t[i]; for(i=deb1;i<=fin2;i++){ if (compt1==deb2) break; else if (compt2==(fin2+1)) { t[i]=table1[compt1-deb1]; compt1++; } else if (table1[compt1-deb1]<t[compt2]){ t[i]=table1[compt1-deb1]; compt1++; } else{ t[i]=t[compt2];
+                    compt2++; } } free(table1); } void tri_fusion_bis(int *t,int deb,int fin) { if (deb!=fin){ int milieu=(fin+deb)/2; tri_fusion_bis(t,deb,milieu); tri_fusion_bis(t,milieu+1,fin); fusion(t,deb,milieu,fin); } } void tri_fusion(int *t,int n)
+                    { if (n>0) tri_fusion_bis(t,0,n-1); } // tri rapide void echanger(int *t, int i, int j) { int tmp; tmp=t[i]; t[i]=t[j]; t[j]=tmp; } int partition(int *t, int deb, int fin) { int compt=deb; int pivot=t[deb]; int i; for(i=deb+1;i
+                    <=fin;i++){ if(t[i]<pivot){ compt++; echanger(t,compt,i); } } echanger(t,compt,deb); return(compt); } void tri_rapide_bis(int *t, int debut,int fin) { if(debut<fin) { int pivot=partition(t,debut,fin); tri_rapide_bis(t,debut,pivot-1); tri_rapide_bis(t,pivot+1,fin);
+                        } } void tri_rapide(int *t,int n) { tri_rapide_bis(t,0,n-1); } //remplisage du tableau void remplir_tab(int *t,int n) {int i; printf( "\n"); for(i=0;i<n;i++){ printf( "Donner l'entier %d: ",i+1); scanf( "%d",&t[i]); } } //pire cas
+                        void remplir_tableau_decroissant(int * t,int n) {int i; i=0; while(i<n) //remplir le tableau pour la 1ere fois. { t[i]=n-i; i++; } printf( "\n  le tableau est bien rempli par ordre decroissant\n"); } //meilleur cas void remplir_tableau_croissant(int
+                        * t,int n) {int i; i=0; while(i<n) //remplir le tableau pour la 1ere fois. { t[i]=i; i++; } printf( "\n  le tableau est bien rempli par ordre decroissant\n"); } //tri par tas void initTableau(int *tab, int taille){ int i; for(i=0 ;
+                        i < taille; i++) tab[i]=r and(); } void swap(int *a, int *b){ int x=* a; *a=* b; *b=x ; } char domine( int *tab, int taille, int j ){ if( 2*(j+1)-1>= taille) /* tab[j] est seul */ return TRUE; else if(2*(j+1)-1 == taille-1 && tab[j] >= tab[2*(j+1)-1]) /* tab[j] a 1 descendant et domine */ return TRUE; else if(tab[j] >= tab[2*(j+1)-1] && tab[j] >= tab[2*(j+1)]) /* tab[j] a 2 descendants
+                        et domine */ return TRUE; return FALSE; /* Dans le cas ou tab[j] n'est pas seul et ne domine pas */ } void retablirTas( int *tab, int j, int taille ){ while(!domine(tab, taille, j)){/* I(j) et j domine => tab[0...taille-1] est
+                        un tas.*/ if( 2*(j+1) == taille){ /* degre 1 && I(2(j+1)-1) */ swap(&tab[j], &tab[ 2*(j+1)-1 ]); j = 2*(j+1)-1; } else{ /* degre 2 */ if( tab[ 2*(j+1)-1 ] >= tab[ 2*(j+1) ] ){ /* I(2(j+1)-1) */ swap( &tab[ 2*(j+1)-1 ], &tab[j]
+                        ); j = 2*(j+1)-1; /* I(j) */ } else{ /*I(2*(j+1)) */ swap(&tab[ 2*(j+1) ], &tab[j]); j = 2*(j+1); /* I(j) */ } } } } void faireTas(int *tab, int taille){ int k; for(k = taille-1; k >= 0; k--) retablirTas(tab, k, taille); } int
+                        main(int argc, char *argv[]) { printf("*******************************************************************************\n"); printf(" Universit%c de la science et de la technologie HOUARI BOUMEDIENNE 2012/2013 \n",130); printf("
+                        Module : complexit%c MASTER: IL \n",130); printf(" Mini-projet N 2 \n",130); printf(" Etude exp%crimentale des algorithmes de recherche et des algorithmes de tri \n",130); printf(" R%calis%c par : TIHAR KHADIDJA * SILHADI ISMAHANE
+                        * SENOUCI Reda \n",130,130); printf(" Travail r%calis%c sur une machine de processus : i5 CPU @ 2.4GHZ \n",130,130); printf("********************************************************************************\n"); int n=0,i,num,f,j,x;
+                        int *t; clock_t Debut,Fin; float Temp; int c; printf("donner la taille de l'ensemble des donn%ces N= ",130); scanf("%d",&n); f=n; t=(int *)malloc(n*sizeof(int)); printf("\n Le tableau est rempli avec %d valeurs al%catoire...\n",n,130,130,130,130);
+                        for(i=0;i
+
+                        <n;i++) //n valeurs généré aléatoirement t[i]=rand(); // liste des algorithmes de tri while(1) { printf( "\n-------------------------------------Menu--------------------------------------\n"); printf( "\n1. Trier le tableau\n",133); printf(
+                            "2. Afficher les %cl%cments du tableau\n",130,130); printf( "3. Modifier le tableau et le remplir manuellement\n",130,130); printf( "4. Modifier le tableau et le remplir par ordre decroissant (pire des cas)\n"); printf(
+                            "5. Modifier le tableau et le remplir par ordre croissant (meilleur des cas)\n"); printf( "6. Quitter\n"); // choisir l 'algorithme à appliquer
+			do{
+			printf("\nVeuillez saisir votre choix dans le menu: ");
+			scanf("%d",&num);
+			if((num>6)||(num<1)) printf("\n(!) Ce num%cro ne figure pas dans la liste !\n",130);}
+			while((num>6)||(num<1));
+			// appliquer l'algorithme choisi if(num==1) { //tri insertion Debut=clock(); tri_insertion(t,n); Fin=clock(); Temp=(float)(Fin-Debut)/CLOCKS_PER_SEC; printf( "\n\nLe temps d'execution de TRI PAR INSERTION est : %f \n",Temp); //tri fusion Debut=clock();
+                            tri_fusion(t,n); Fin=clock(); Temp=(float)(Fin-Debut)/CLOCKS_PER_SEC; printf( "\n\nLe temps d'execution de TRI PAR FUSION est : %f ",Temp); //tri rapide Debut=clock(); tri_rapide(t, n); Fin=clock(); Temp=(float)(Fin-Debut)/CLOCKS_PER_SEC;
+                            printf( "\n\nLe temps d'execution de TRI RAPIDE est : %f ",Temp); //tri par tas initTableau(t,n); Debut=clock(); faireTas(t, n); while ( f> 1){ swap(&t[0], &t[f-1]); retablirTas(t, 0, f-1); f--; } Fin=clock(); Temp=(float)(Fin-Debut)/CLOCKS_PER_SEC; printf("\n\nLe temps d'execution de TRI PAR TAS est : %f ",Temp); printf("\nAppuyer sur n'importe quelle touche pour
+                            continuer\n"); getch(); } if(num==2) { printf("Les %cl%cments du tableau sont :",130,130); for(i=0;i
+                            <n;i++) printf( " %d ",t[i]); printf( "\nAppuyer sur n'importe quelle touche pour continuer\n"); getch(); } if(num==3) { printf( "\nL'ancienne taille de tableau est de : %d\n",n); printf( "donnez la nouvelle taille du tableau : \n"); scanf( "%d",&n);
+                            //nombre d 'elements du tableau.
+						t=(int*)malloc((n)*sizeof(int));
+						remplir_tab(t,n);
+						printf("\nAppuyer sur n'importe quelle touche pour continuer\n ");
+			getch();
+			 
+			 }
+			 
+			 if(num==4)
+			 {
+					   printf("\nL 'ancienne taille du tableau est de : %d\n",n);
+						printf("donnez la nouvelle taille du tableau : \n");
+						scanf("%d",&n);            //nombre d'elements du tableau. t=(int*)malloc((n)*sizeof(int)); remplir_tableau_decroissant(t,n); printf( "\nAppuyer sur n'importe quelle touche pour continuer\n"); getch(); } if(num==5) { printf(
+                                "\nL'ancienne taille de tableau est de : %d\n",n); printf( "donnez la nouvelle taille du tableau : \n"); scanf( "%d",&n); //nombre d 'elements du tableau.
+						t=(int*)malloc((n)*sizeof(int));
+						remplir_tableau_croissant(t,n); 
+						printf("\n\nAppuyer sur n'importe quelle touche pour continuer\n ");
+			getch(); 
+						 }
+			 
+			 
+			if(num==6)
+			{
+					  exit(0);
+			}
+			//affichage du temps d'execution
+			 
+			 
+			printf("\n \n ");
+			}
+			  system("PAUSE ");	
+			  return 0;
+			}
+	
+	</html>
